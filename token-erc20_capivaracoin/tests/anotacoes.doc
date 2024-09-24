@@ -1,0 +1,147 @@
+Criarção da private key 
+
+wandsonmesquita@LAPTOP-T7TA7229:~/.capivara-wallets/erc20test$ starkli signer keystore new ~/.capivara-wallets/erc20test/capivara_keystore.json
+Enter password:
+Created new encrypted keystore file: /home/wandsonmesquita/.capivara-wallets/erc20test/capivara_keystore.json
+Public key: 0x01427e2d76a0e1cacaa2f253647b263646eabc613f7f9d8885fb73d33763ad0d
+
+wandsonmesquita@LAPTOP-T7TA7229:~/.capivara-wallets/erc20test$ cat ~/.capivara-wallets/erc20test/capivara_keystore.json
+{"crypto":{"cipher":"aes-128-ctr","cipherparams":{"iv":"27d706bd8f0a019a22abc55a2bd95d79"},"ciphertext":"dc52e8a076684dc9de0066f43c78018d6c2a565f00025d7a3fb28319f3b7b28f","kdf":"scrypt","kdfparams":{"dklen":32,"n":8192,"p":1,"r":8,"salt":"98bf42c2adfda0b01145232b397c145516bbb18d8df4b7197f3d33d75467a669"},"mac":"156b74941ba4e3b04825879968104a82911ba4ce4ef8dfb85f45eab1264a2384"},"id":"e3b44e9d-9448-4f9b-8b9b-85fb068df79f","version":3}
+
+
+Criação da conta 
+
+wandsonmesquita@LAPTOP-T7TA7229:~/.capivara-wallets/erc20test$ starkli account oz init ~/.capivara-wallets/erc20test/capivara_account.json
+Enter keystore password:
+Created new account config file: /home/wandsonmesquita/.capivara-wallets/erc20test/capivara_account.json
+
+Once deployed, this account will be available at:
+    0x07c015ddc076554d59682672502e28eaa726a0bb7624e4925b7185d0f66a79f4
+
+Deploy this account by running:
+    starkli account deploy /home/wandsonmesquita/.capivara-wallets/erc20test/capivara_account.json
+
+
+Deploy da conta
+
+wandsonmesquita@LAPTOP-T7TA7229:/mnt/c/Users/wfmes/OneDrive/Área de Trabalho/capivara coin/toke
+n-sender-erc20$ starkli account deploy ~/.capivara-wallets/erc20test/capivara_account.json --ke
+ystore ~/.capivara-wallets/erc20test/capivara_keystore.json
+WARNING: you're using neither --rpc (STARKNET_RPC) nor --network (STARKNET_NETWORK). The `sepolia` network is used by default. See https://book.starkli.rs/providers for more details.        
+Enter keystore password:
+The estimated account deployment fee is 0.000012944930545560 ETH. However, to avoid failure, fund at least:
+    0.000019417395818340 ETH
+to the following address:
+    0x07c015ddc076554d59682672502e28eaa726a0bb7624e4925b7185d0f66a79f4
+
+Transação e confirmação do deploy da conta.
+
+Press [ENTER] once you've funded the address.
+Account deployment transaction: 0x062e719e184a7cc89f0a8ca4102d5ab65413d479c797f473fe67f45b6b101a69
+Waiting for transaction 0x062e719e184a7cc89f0a8ca4102d5ab65413d479c797f473fe67f45b6b101a69 to confirm. If this process is interrupted, you will need to run `starkli account fetch` to update the account file.
+Transaction not confirmed yet...
+Transaction not confirmed yet...
+Transaction not confirmed yet...
+Transaction not confirmed yet...
+Transaction 0x062e719e184a7cc89f0a8ca4102d5ab65413d479c797f473fe67f45b6b101a69 confirmed
+
+Contrato Declarado 
+
+wandsonmesquita@LAPTOP-T7TA7229:/mnt/c/Users/wfmes/OneDrive/Área de Trabalho/capivara coin/toke
+n-sender-erc20$ starkli declare target/dev/token_sender_CapivaraERC20.contract_class.json --rpc https://starknet-sepolia.public.blastapi.io/rpc/v0_7 --account ~/.capivara-wallets/erc20test/capivara_account.json --keystore ~/.capivara-wallets/erc20test/capivara_keystore.json
+Enter keystore password:
+Sierra compiler version not specified. Attempting to automatically decide version to use...
+Network detected: sepolia. Using the default compiler version for this network: 2.7.1. Use the --compiler-version flag to choose a different version.
+Declaring Cairo 1 class: 0x00d1de4f1fe31a95a75952ed485fc6e405d0130f540f94f776e08455ad4a4a40    
+Compiling Sierra class to CASM with compiler version 2.7.1...
+CASM class hash: 0x0404748d8dffba5a7786c0b7240b8d4352530b23810aceab09c61d9650e2b38f
+Contract declaration transaction: 0x04fd5ff3cd705a5c06c493532aeb6754c388f0bf18fc31ceb8e63386f7088364
+Class hash declared:
+0x00d1de4f1fe31a95a75952ed485fc6e405d0130f540f94f776e08455ad4a4a40
+
+
+Contrato Deployado
+
+wandsonmesquita@LAPTOP-T7TA7229:/mnt/c/Users/wfmes/OneDrive/Área de Trabalho/capivara coin/toke
+n-sender-erc20$ starkli deploy 0x00d1de4f1fe31a95a75952ed485fc6e405d0130f540f94f776e08455ad4a4a40 u256:1000000000 0x07c015ddc076554d59682672502e28eaa726a0bb7624e4925b7185d0f66a79f4 --rpc https://starknet-sepolia.public.blastapi.io/rpc/v0_7 --account ~/.capivara-wallets/erc20test/capivara_account.json --keystore ~/.capivara-wallets/erc20test/capivara_keystore.json
+Enter keystore password: 
+Deploying class 0x00d1de4f1fe31a95a75952ed485fc6e405d0130f540f94f776e08455ad4a4a40 with salt 0x0376b80042d3aa7e6f801a6e743d69930735b40c54fa93b9f2a5de587700d93a...
+The contract will be deployed at address 0x048380cf31ac6608a5039a4f45c50158f3375631afe6e3a7c536e3ac4cce0390
+Contract deployment transaction: 0x037bef1e01c26029c83a3ee61b347a4d644a4b807a8f15a3553b1aa6a17e7410
+Contract deployed:
+0x048380cf31ac6608a5039a4f45c50158f3375631afe6e3a7c536e3ac4cce0390
+
+
+Deploy Mainnet 
+
+Criação de Private Key
+
+wandsonmesquita@LAPTOP-T7TA7229:/mnt/c/Users/wfmes/OneDrive/Área de Trabalho/capivara coin/token-sender-erc20$ starkli signer keystore new ~/.wallets/mainnet/mainnet_keystore.json
+Enter password: 
+Created new encrypted keystore file: /home/wandsonmesquita/.wallets/mainnet/mainnet_keystore.json
+Public key: 0x01d13336ce7939c9e402a8d9d623d9c76bb2b11995d6a8c3e4a83d31334b24b2
+
+Criação de conta
+
+wandsonmesquita@LAPTOP-T7TA7229:/mnt/c/Users/wfmes/OneDrive/Área de Trabalho/capivara coin/token-sender-erc20$ starkli account oz init ~/.wallets/mainnet/mainnet_account.json --keystore ~/.wallets/mainnet/mainnet_keystore.json
+Enter keystore password: 
+Created new account config file: /home/wandsonmesquita/.wallets/mainnet/mainnet_account.json
+
+Once deployed, this account will be available at:
+    0x01c28988597e994060862dd1529bb4ac6d1ee3912c751de0924d522173a5c525
+
+Deploy this account by running:
+    starkli account deploy /home/wandsonmesquita/.wallets/mainnet/mainnet_account.json
+
+
+Depoly da Conta 
+
+wandsonmesquita@LAPTOP-T7TA7229:/mnt/c/Users/wfmes/OneDrive/Área de Trabalho/capivara coin/token-sender-erc20$ starkli account deploy ~/.wallets/mainnet/mainnet_account.json --rpc https://free-rpc.nethermind.io/mainnet-juno --keystore ~/.wallets/mainnet/mainnet_keystore.json
+Enter keystore password: 
+The estimated account deployment fee is 0.000000115343485878 ETH. However, to avoid failure, fund at least:
+    0.000000173015228817 ETH
+to the following address:
+    0x01c28988597e994060862dd1529bb4ac6d1ee3912c751de0924d522173a5c525
+
+
+wandsonmesquita@LAPTOP-T7TA7229:/mnt/c/Users/wfmes/OneDrive/Área de Trabalho/capivara coin/token-sender-erc20$ starkli account deploy ~/.wallets/mainnet/mainnet_account.json --rpc https://free-rpc.nethermind.io/mainnet-juno --keystore ~/.wallets/mainnet/mainnet_keystore.json
+Enter keystore password: 
+The estimated account deployment fee is 0.000000112815466398 ETH. However, to avoid failure, fund at least:
+    0.000000169223199597 ETH
+to the following address:
+    0x01c28988597e994060862dd1529bb4ac6d1ee3912c751de0924d522173a5c525
+Press [ENTER] once you've funded the address.
+Account deployment transaction: 0x0250796ff49807af841569790c25d7a9ef85a4d2ddc23aa19d16767533006632
+Waiting for transaction 0x0250796ff49807af841569790c25d7a9ef85a4d2ddc23aa19d16767533006632 to confirm. If this process is interrupted, you will need to run `starkli account fetch` to update the account file.
+Transaction not confirmed yet...
+Transaction 0x0250796ff49807af841569790c25d7a9ef85a4d2ddc23aa19d16767533006632 confirmed
+
+Contrato Declarado
+
+wandsonmesquita@LAPTOP-T7TA7229:/mnt/c/Users/wfmes/OneDrive/Área de Trabalho/capivara coin/token-sender-erc20$ starkli declare ./target/dev/token_sender_CapivaraERC20.contract_class.json --account ~/.wallets/mainnet/mainnet_account.json --rpc https://free-rpc.nethermind.io/mainnet-juno --keystore ~/.wallets/mainnet/mainnet_keystore.json 
+Enter keystore password: 
+Sierra compiler version not specified. Attempting to automatically decide version to use...
+Network detected: mainnet. Using the default compiler version for this network: 2.6.4. Use the --compiler-version flag to choose a different version.
+Declaring Cairo 1 class: 0x00d1de4f1fe31a95a75952ed485fc6e405d0130f540f94f776e08455ad4a4a40
+Compiling Sierra class to CASM with compiler version 2.6.4...
+CASM class hash: 0x0404748d8dffba5a7786c0b7240b8d4352530b23810aceab09c61d9650e2b38f
+Contract declaration transaction: 0x05f9db50c14b9499c22f620d701f6c7f7453132a53bfac731cef2cadb9026503
+Class hash declared:
+0x00d1de4f1fe31a95a75952ed485fc6e405d0130f540f94f776e08455ad4a4a40
+
+Contrato Deployado
+
+wandsonmesquita@LAPTOP-T7TA7229:/mnt/c/Users/wfmes/OneDrive/Área de Trabalho/capivara coin/token-sender-erc20$ starkli deploy 0x00d1de4f1fe31a95a75952ed485fc6e405d0130f540f94f776e08455ad4a4a40 u256:1000000000 0x05d1376a48eef71cdc7b2d49836ce08989999bca88cdbd255323aafa5819fff5 --account ~/.wallets/mainnet/mainnet_account.json --rpc https://free-rpc.nethermind.io/mainnet-juno --keystore ~/.wallets/mainnet/mainnet_keystore.json
+Enter keystore password: 
+Deploying class 0x00d1de4f1fe31a95a75952ed485fc6e405d0130f540f94f776e08455ad4a4a40 with salt 0x00a74deaf973bc6f7d64c249e5b3b44dd46c3aa68536a0883cfa6d5ec7eab2f5...
+The contract will be deployed at address 0x01bdf56637034ceee8b929e82d9f4d88b949fffad9349a152647111168024a43      
+Contract deployment transaction: 0x06bae7fd8a5f6f02a31c8dae3354387b2898d35b18c9ed955c3d6cac2e28f35d
+Contract deployed:
+0x01bdf56637034ceee8b929e82d9f4d88b949fffad9349a152647111168024a43
+
+Call do Contrato
+
+wandsonmesquita@LAPTOP-T7TA7229:/mnt/c/Users/wfmes/OneDrive/Área de Trabalho/capivara coin/token-sender-erc20$ starkli call 0x01bdf56637034ceee8b929e82d9f4d88b949fffad9349a152647111168024a43  total_supply --rpc https://free-rpc.nethermind.io/mainnet-juno
+[
+    "0x000000000000000000000000000000000000000000000000000000003b9aca00",
+    "0x0000000000000000000000000000000000000000000000000000000000000000"
